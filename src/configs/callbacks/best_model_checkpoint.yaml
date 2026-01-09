@@ -1,0 +1,8 @@
+best_model_checkpoint:
+  _target_: src.modules.utils.checkpoints.BestModelCheckpoint
+  dirpath: ${paths.output_dir}/checkpoints # directory to save the model file
+  filename: "ep{epoch:04d}_vl{val/loss:.4f}_tl{train/loss:.4f}"
+  monitor: "???"
+  mode: "min"
+  save_top_k: 1
+  verbose: False

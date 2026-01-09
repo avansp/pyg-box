@@ -1,0 +1,30 @@
+_target_: src.modules.model.image_classifier.ImageClassifierLitModule
+width: ???
+height: ???
+channel: ???
+num_classes: ???
+
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: true
+  lr: 0.001
+  weight_decay: 0.0
+
+scheduler:
+  _target_: torch.optim.lr_scheduler.ReduceLROnPlateau
+  _partial_: true
+  mode: min
+  factor: 0.1
+  patience: 10
+
+loss:
+  _target_: torch.nn.CrossEntropyLoss
+
+net:
+  _target_: src.modules.model.nets.dense_net.SimpleDenseNet
+  _partial_: true
+  lin1_size: 64
+  lin2_size: 128
+  lin3_size: 64
+
+compile: false

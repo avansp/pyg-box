@@ -1,0 +1,21 @@
+[project]
+name = "torch-dev"
+version = "0.1"
+description = "A simple template to create ML project using PyTorch Lightning and Hydra."
+authors = [
+    {name="Avan Suinesiaputra", email="avan.sp@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+
+[project.urls]
+Homepage = "https://github.com/avansp/template-hydra-lightning"
+Issues = "https://github.com/avansp/template-hydra-lightning/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+train = "modules.train:train"
+evaluate = "modules.eval:eval"

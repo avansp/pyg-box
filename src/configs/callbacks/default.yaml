@@ -1,0 +1,7 @@
+defaults:
+  - tqdm
+  - model_summary
+  - best_model_checkpoint
+  - early_stopping
+  - _self_
+

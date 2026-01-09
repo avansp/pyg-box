@@ -1,0 +1,10 @@
+# This trainer runs `fast_dev_run` mode as explained in 
+# https://lightning.ai/docs/pytorch/stable/debug/debugging_basic.html#run-all-your-model-code-once-quickly
+#
+# The aim is to run quickly for a few batches to test that there is no bug in your training scheme.
+
+defaults:
+  - default
+
+fast_dev_run: true
+

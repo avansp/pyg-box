@@ -1,0 +1,45 @@
+# @package _global_
+
+# This is MNIST classification task
+#
+# To train:
+#   train task=mnist
+#
+
+# set the output folder
+name: mnist
+
+# override sub configs
+defaults:
+  - override /model: image_classifier
+
+# specific image dimension for the MNIST images
+model:
+  width: 28
+  height: 28
+  channel: 1
+  num_classes: 10
+
+# create data module MNISTDataModule
+data:
+  _target_: src.modules.data.mnist_datamodule.MNISTDataModule
+  data_dir: ${paths.data_dir}
+  batch_size: 128 # Needs to be divisible by the number of devices (e.g., if in a distributed setup)
+  train_pct: 0.7
+  num_workers: 0
+  pin_memory: False
+
+# set some variables in the callbacks
+callbacks:
+  early_stopping:
+    monitor: "val/loss"
+    patience: 10
+    mode: "min"
+    verbose: True
+
+  best_model_checkpoint:
+    monitor: "val/loss"
+    mode: "min"
+    verbose: True
+
+

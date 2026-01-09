@@ -1,0 +1,39 @@
+# @package _global_
+
+# Run this script in the command line as:
+# >> train task=<task_name>
+#
+# See available tasks under configs/task folder.
+#
+# Note that running this script will create new directories under the PROJECT ROOT:
+#  - data/ for datasets
+#  - outputs/ for logs and checkpoints
+
+# specify here default configuration
+
+# order of defaults determines the order in which configs override each other
+defaults:
+  - _self_
+  - hydra: default
+  - paths: default
+  - callbacks: default
+  - logger: default
+  - trainer: default
+  - model: null
+  - data: null
+  - task: ???
+
+## seed for random number generators in pytorch, numpy and python.random
+seed: 42
+
+# pretty print config tree at the start of the run using Rich library
+print_config: true
+
+# this name is mandatory to determine output path; see configs/paths/
+name: "train"
+
+# to resume training from a checkpoint, set the path here
+ckpt_path: null
+
+# optimized metric should be set for returning a value
+optimized_metric: null
