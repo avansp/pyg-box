@@ -1,0 +1,43 @@
+_target_: src.modules.model.graph_classifier.GraphClassifierModule
+
+# mandatory __init__ arguments
+num_features: ???
+num_classes: ???
+
+# default __init__ arguments
+graph_net_out_channels: 64
+pooling: add
+mlp_dropout: 0.5
+mlp_norm: batch_norm
+compile: false
+
+# the graph_net by default is GIN
+graph_net:
+  _target_: torch_geometric.nn.GIN
+  _partial_: true
+  hidden_channels: 64  # this must be the same as graph_net_out_channels above
+  num_layers: 3
+  dropout: 0.2
+  act: relu
+  act_first: false
+  jk: cat
+
+# Options: https://pytorch.org/docs/stable/generated/torch.optim.Adam.html
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: true # need to define params from the model
+  lr: 0.001
+  weight_decay: 0.0
+
+# Options: https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html
+scheduler:
+  _target_: torch.optim.lr_scheduler.ReduceLROnPlateau
+  _partial_: true  # need to define the optimizer during initialisation
+  mode: min
+  factor: 0.1
+  patience: 10
+
+loss:
+  _target_: torch.nn.CrossEntropyLoss
+
+
