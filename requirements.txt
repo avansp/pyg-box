@@ -16,3 +16,6 @@ pytest          # tests
 tensorboard     # logging training metrics
 mlflow          # logging using MLFlow
 loguru          # simple logging
+torch_geometric # geometric deep learning extension library for PyTorch
+tqdm            # progress bars
+

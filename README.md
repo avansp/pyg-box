@@ -6,7 +6,7 @@
 [![pytorch](https://img.shields.io/badge/PyTorch_2.0+-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![lightning](https://img.shields.io/badge/-Lightning_2.0+-792ee5?logo=pytorchlightning&logoColor=white)](https://lightning.ai/docs/pytorch/stable/)
 [![hydra](https://img.shields.io/badge/Config-Hydra_1.3-89b8cd)](https://hydra.cc/)
-[![pyg](https://img.shields.io/badge/PyG_2.8.0+-coral?logo=pyg)](https://pytorch-geometric.readthedocs.io)
+[![pyg](https://img.shields.io/badge/PyG_2.7.0+-coral?logo=pyg)](https://pytorch-geometric.readthedocs.io)
 
 </div>
 
