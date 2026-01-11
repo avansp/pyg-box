@@ -1,7 +1,7 @@
 [project]
-name = "torch-dev"
+name = "pyg-box"
 version = "0.1"
-description = "A simple template to create ML project using PyTorch Lightning and Hydra."
+description = "A sandbox for the PyTorch Geometric model and dataset testing."
 authors = [
     {name="Avan Suinesiaputra", email="avan.sp@gmail.com"}
 ]
@@ -18,4 +18,3 @@ build-backend = "setuptools.build_meta"
 
 [project.scripts]
 train = "modules.train:train"
-evaluate = "modules.eval:eval"

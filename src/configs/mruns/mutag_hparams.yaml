@@ -1,10 +1,10 @@
 # @package _global_
 
-# This is MNIST classification hyperparameterisation search task
+# This is MUTAG graph classification hyperparameterisation search task
 #
 # To use this, you must activate multi runs and use the appropriate hparams config.
 # E.g.
-#   train -m task=mnist mruns=mnist_hparams
+#   train task=mutag +mruns=mutag_hparams
 #
 
 defaults:
@@ -50,9 +50,7 @@ hydra:
     # define hyperparameter search space
     params:
       model.optimizer.lr: interval(0.0001, 0.1)
-      data.batch_size: choice(32, 64, 128, 256)
-      model.net.lin1_size: choice(64, 128, 256)
-      model.net.lin2_size: choice(64, 128, 256)
-      model.net.lin3_size: choice(32, 64, 128, 256)
+      model.graph_net.num_layers: choice(3, 5, 7)
+      # data.batch_size: choice(8, 10)
 
   
