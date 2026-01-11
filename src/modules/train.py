@@ -56,6 +56,7 @@ def train(cfg: DictConfig):
         logging.info(f"Setting random seed to {cfg.seed}.")
         lit.seed_everything(cfg.seed, workers=True)
 
+
     # INSTANTIATIONS
 
     logging.info(f"Instantiating model <{cfg.model._target_}>")

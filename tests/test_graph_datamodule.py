@@ -1,6 +1,5 @@
 import pytest
 from pathlib import Path
-from src.modules.data.mnist_datamodule import MNISTDataModule
 from src.modules.data.graph_datamodule import GraphDataModule
 from hydra.utils import instantiate
 from omegaconf import OmegaConf
@@ -15,6 +14,7 @@ def test_datamodule_mutag(tmp_path: Path):
 
     cfg = OmegaConf.create({
         "_target_": "src.modules.data.graph_datamodule.GraphDataModule",
+        "batch_size": 64, 
         "dataset": {
             "_target_": "torch_geometric.datasets.TUDataset",
             "root": data_dir,

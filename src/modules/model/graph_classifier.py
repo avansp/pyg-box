@@ -92,33 +92,12 @@ class GraphClassifierModule(LightningModule):
             )
         )
 
-    def validate_input_output(self):
-        """Perform assertion checking the input and output model with the number of features and classes in the data."""
-        # check the number of classes in the data module must be equal with the output channel in the graph module
-        # self.trainer.train_dataloader.dataset is ANICADDataset3D or InMemoryDataset
-        num_classes = self.trainer.train_dataloader.dataset.num_classes
-        out_channels = self.classifier.out_channels
-        assert num_classes == out_channels, \
-            (f"The number of classes (={num_classes}) does not match with the number of output channels "
-             f"(={out_channels}) in the model. Edit the 'num_classes' parameter in the model config file to match "
-             f"with the number of classes in the data, or use 'model.num_classes={num_classes}' in the command line.")
-
-        # check also the number of features
-        num_features = self.trainer.train_dataloader.dataset.num_features
-        in_channels = self.graph_net.in_channels
-        assert num_features == in_channels, \
-            (f"The number of features (={num_features}) does not match with the number of input channels "
-             f"(={in_channels}). Edit the 'num_features' parameter in the model config file to match with the number "
-             f"of features defined in the data, or use 'model.num_features={num_features}' in the command line.")
-
     def on_train_start(self) -> None:
         """Lightning hook that is called when training begins.
 
         By default lightning executes validation step sanity checks before training starts,
         therefore it's worth to make sure validation metrics don't store results from these checks.
         """
-        self.validate_input_output()
-
         # reset all validation metrics
         self.val_loss.reset()
         self.val_acc.reset()
@@ -127,7 +106,7 @@ class GraphClassifierModule(LightningModule):
     def model_step(self, data) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """Perform a single model step on a batch of data.
 
-        :param data: A graph data batch (PerfusionGraphDataBatch)
+        :param data: A graph data batch
 
         :return: A tuple containing (in order):
             - A tensor of losses.
@@ -146,13 +125,7 @@ class GraphClassifierModule(LightningModule):
         return loss, preds, data.y
 
     def training_step(self, data, batch_idx: int) -> torch.Tensor:
-        """Perform a single training step on a batch of data from the training set.
-
-        :param data: A batch of data (a tuple) containing the input tensor of images and target
-            labels. In this case, it is PerfusionGraphDataBatch.
-        :param batch_idx: The index of the current batch (int).
-        :return: A tensor of losses between model predictions and targets.
-        """
+        """Perform a single training step on a batch of data from the training set."""
         # run the model_step, which we get the loss probability, predicted class, and the reference class
         loss, preds, targets = self.model_step(data)
 

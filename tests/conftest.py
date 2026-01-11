@@ -1,7 +1,7 @@
 """This file prepares files and configurations for unit tests."""
 
 import pytest
-from omegaconf import DictConfig, open_dict
+from omegaconf import DictConfig, OmegaConf
 from hydra import compose, initialize
 import rootutils
 from pathlib import Path

@@ -1,0 +1,40 @@
+# @package _global_
+
+# This is TUDataset MUTAG graph classification task
+#
+# To train:
+#   train task=mutag
+#
+
+name: "MUTAG"
+
+# override sub configs
+defaults:
+  - override /model: graph_classifier
+
+model:
+  num_features: 7
+  num_classes: 2
+
+data:
+  _target_: src.modules.data.graph_datamodule.GraphDataModule
+  batch_size: 32
+
+  dataset:
+    _target_: torch_geometric.datasets.TUDataset
+    root: ${paths.data_dir}
+    name: ${name}
+
+# set some variables in the callbacks
+callbacks:
+  early_stopping:
+    monitor: "val/loss"
+    patience: 10
+    mode: "min"
+    verbose: True
+
+  best_model_checkpoint:
+    monitor: "val/loss"
+    mode: "min"
+    verbose: True
+

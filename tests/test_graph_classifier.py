@@ -5,6 +5,7 @@ from hydra.utils import instantiate
 import pytest
 from torch_geometric.datasets import FakeDataset
 from torch_geometric.loader import DataLoader
+from torch_geometric.datasets import TUDataset
 
 
 @pytest.mark.parametrize("num_classes,node_features", [(2, 1), (2, 2), (5, 7)])
@@ -33,5 +34,3 @@ def test_graph_classifier(num_classes: int, node_features: int):
         assert preds.size() == torch.Size([64])
         assert y.size() == torch.Size([64])
         assert (preds >= 0).bitwise_and(preds < num_classes).all()
-
-
