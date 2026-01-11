@@ -6,29 +6,34 @@ from omegaconf import OmegaConf
 from pathlib import Path
 
 
-def test_datamodule_mutag(tmp_path: Path):
-    """Test instantiating GraphDataModule with TUDataset's MUTAG graph data."""
-    data_dir = tmp_path / "data"
-    print(f"{data_dir=}")
-    name = "MUTAG"
-
+def test_graph_datamodule():
+    """Testing instantiating GraphDataModule and check loaders."""
     cfg = OmegaConf.create({
         "_target_": "src.modules.data.graph_datamodule.GraphDataModule",
-        "batch_size": 64, 
+        "batch_size": 15,
         "dataset": {
-            "_target_": "torch_geometric.datasets.TUDataset",
-            "root": data_dir,
-            "name": name
+            "_target_": "torch_geometric.datasets.FakeDataset",
+            "num_graphs": 300,
+            "num_classes": 10
+        },
+        "splitter": {
+            "_target_": "src.modules.data.data_splitter.RandomSplitter",
+            "split": [0.6, 0.3, 0.1]
         }
     })
 
-    dm : GraphDataModule = instantiate(cfg)
+    data_module : GraphDataModule = instantiate(cfg)
 
-    assert Path(data_dir, name).exists()
-    assert Path(data_dir, name, "raw").exists()
-    assert Path(data_dir, name, "processed").exists()
+    assert len(data_module.train_dataset) == 180
+    assert len(data_module.val_dataset) == 90
+    assert len(data_module.test_dataset) == 30
 
-    assert len(dm.train_dataloader()) > 0
-    assert len(dm.val_dataloader()) > 0
-    assert len(dm.test_dataloader()) > 0
+    for d in data_module.train_dataloader():
+        assert len(d) == 15
+
+    for d in data_module.val_dataloader():
+        assert len(d) == 15
+
+    for d in data_module.test_dataloader():
+        assert len(d) == 15
 
