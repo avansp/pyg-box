@@ -18,8 +18,47 @@ A testing sandbox for graph-based neural network from [PyTorch Geometry](https:/
 pip install -r requirements.txt
 ```
 
+Install `torch-scatter` and `torch-sparse` libraries using specific torch CUDA version. Follow these steps: 
+
+* Check your torch version by using this command:
+    ```
+    python -c "import torch; print(torch.__version__)"
+    ```
+    for example
+    ```text
+    2.9.1+cu128
+    ```
+
+* Then install with that specific CUDA version of your torch library
+    ```
+    pip install torch-sparse torch-scatter -f "https://data.pyg.org/whl/torch-{CUDA_VERSION}.html"
+    ```
+
+    For the example above:
+    ```
+    pip install torch-sparse torch-scatter -f "https://data.pyg.org/whl/torch-2.9.1+cu128.html"
+    ```
+
 Install the package script (note use `-e` for development)
 ```{bash}
 pip install .
 ```
 
+## Graph classification with MUTAG dataset
+
+Notebook to learn: [graph_classification.ipynb](notebooks/graph_classification.ipynb)
+
+Training:
+```bash
+train task=mutag
+```
+
+
+## Node classification with CORA dataset
+
+Notebook to learn: [cora_clustering.ipynb](notebooks/cora_clustering.ipynb)
+
+Training:
+```bash
+train task=cora
+```
